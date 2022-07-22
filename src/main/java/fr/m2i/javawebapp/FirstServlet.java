@@ -19,8 +19,7 @@ public class FirstServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        super.doGet(request, response);
-//        response.sendRedirect("SecondServlet");
+        request.setAttribute("name", request.getParameter("name"));
         this.getServletContext().getRequestDispatcher("/first.jsp").forward(request, response);
     }
 

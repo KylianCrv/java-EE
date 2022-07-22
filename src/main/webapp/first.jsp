@@ -7,5 +7,8 @@
 
     <body>
         <h2>Ceci est ma première page JSP</h2>
+<!--        <p>Bonjour <b><%= request.getParameter("name")%>  </b>!</p>-->
+        <p>Bonjour <b>${name} </b>!</p>
+
     </body>
 </html>

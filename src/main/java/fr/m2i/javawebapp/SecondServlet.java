@@ -19,9 +19,8 @@ public class SecondServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.sendRedirect("secondServlet.html");
+        request.setAttribute("name", request.getParameter("name"));
         this.getServletContext().getRequestDispatcher("/second.jsp").forward(request, response);
-//        response.sendRedirect("index.html");
 
     }
 
