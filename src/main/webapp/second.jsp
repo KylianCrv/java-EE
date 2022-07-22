@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <jsp:include page="include/header.jsp">
-        <jsp:param name="title" value="my second JSP Page"/>
+        <jsp:param name="title" value="Ma seconde page JSP"/>
     </jsp:include>
     <body>
         <h2>Ceci est ma deuxième page JSP</h2>
