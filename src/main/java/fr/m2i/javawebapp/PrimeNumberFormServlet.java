@@ -22,6 +22,8 @@ public class PrimeNumberFormServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+//        int nbr = Integer.parseInt(request.getParameter("number"));
+//        request.setAttribute("number", request.getParameter("number"));
         this.getServletContext().getRequestDispatcher("/primeNumberForm.jsp").forward(request, response);
     }
 

@@ -6,12 +6,12 @@
         <jsp:param name="title" value="prime number"/>
     </jsp:include>
     <body>
-        <c:forEach var="entry" begin="${2}" end="${30}">
+        <c:forEach var="entry" begin="2" end="30">
             <c:set var="v" value ="${entry}" />
-            <c:set var="etat" value ="${0}" />
-            <c:forEach var="item" begin="${2}" end="${30/2}">
+            <c:set var="etat" value ="0" />
+            <c:forEach var="item" begin="2" end="${30/2}">
                 <c:if test="${v % item == 0 && v != item}">
-                    <c:set var="etat" value ="${1}" />
+                    <c:set var="etat" value ="1" />
                 </c:if>
 
             </c:forEach>
