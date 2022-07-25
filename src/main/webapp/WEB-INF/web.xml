@@ -20,6 +20,10 @@
         <servlet-name>ShowListPair</servlet-name>
         <servlet-class>fr.m2i.javawebapp.ShowListPair</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CountWordsServlet</servlet-name>
+        <servlet-class>fr.m2i.javawebapp.CountWordsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FirstServlet</servlet-name>
         <url-pattern>/FirstServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ShowListPair</servlet-name>
         <url-pattern>/ShowListPair</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CountWordsServlet</servlet-name>
+        <url-pattern>/CountWordsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
