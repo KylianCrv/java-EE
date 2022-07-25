@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <jsp:include page="include/header.jsp">
-        <jsp:param name="title" value="my first JSP Page"/>
+        <jsp:param name="title" value="Formulaire compteur de mot"/>
     </jsp:include>
     <body>
         <form method="GET" action="CountWordsServlet">
