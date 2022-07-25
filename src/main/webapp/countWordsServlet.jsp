@@ -7,11 +7,15 @@
         <jsp:param name="title" value="my first JSP Page"/>
     </jsp:include>
     <body>
-        <form>
-            <input type="text" value="${phrase}"/>
-            <input type="button" value="Nombre de mots" onclick=""/>
+        <form method="GET" action="CountWordsServlet">
+            <label> Insérer une phrase : </label>
+            <input type="text" name="sentence" value=""/>
+            <input type="submit" value="Nombre de mots" />
             <br>
-            <c:out value="${count}"/>
         </form>
+
+        <c:if test="${number != null}">
+            <p><c:out value="${number}"/></p>
+        </c:if>
     </body>
 </html>

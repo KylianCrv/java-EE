@@ -2,6 +2,7 @@ package fr.m2i.javawebapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +21,10 @@ public class CountWordsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("phrase", request.getParameter("phrase"));
-        String str[] = request.getParameter("phrase").split("\\s+");
-        int count = str.length;
-        request.setAttribute("count", count);
+        String sentence = request.getParameter("sentence");
+        if (sentence != null) {
+            request.setAttribute("number", new StringTokenizer(sentence).countTokens());
+        }
 
         this.getServletContext().getRequestDispatcher("/countWordsServlet.jsp").forward(request, response);
     }
