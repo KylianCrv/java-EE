@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <jsp:include page="include/header.jsp">
@@ -6,9 +7,11 @@
     </jsp:include>
 
     <body>
-        <h2>Ceci est ma première page JSP</h2>
-<!--        <p>Bonjour <b><%= request.getParameter("name")%>  </b>!</p>-->
-        <p>Bonjour <b>${name} </b>!</p>
+        <c:set var = "name" value="Kylian"/>
+
+
+<!--        <p>Bonjour <b><%= request.getParameter("name")%>  </b>!</p>
+        -->        <p>Bonjour <b><c:out value="${name}"/> </b>!</p>
 
     </body>
 </html>
