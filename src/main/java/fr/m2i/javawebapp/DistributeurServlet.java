@@ -26,9 +26,7 @@ public class DistributeurServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        setDistributorAttributes(request);
-
+        setDistributorAttribute(request);
         this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
 
@@ -46,35 +44,71 @@ public class DistributeurServlet extends HttpServlet {
 
         addCredit(request);
         buyProduct(request);
-        setDistributorAttributes(request);
+        setDistributorAttribute(request);
+
         this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
 
     private void addCredit(HttpServletRequest request) {
 
-        String addCredit = request.getParameter("addCredit");
+        String credit = request.getParameter("credit");
 
-        if (addCredit == null) {
+        if (credit == null) {
             return;
         }
 
-        int amount = Integer.parseInt(addCredit);
+        try {
+            int amount = Integer.parseInt(credit);
 
-        distributeur.insererArgent(amount);
+            if (amount < 0) {
+                request.setAttribute("creditError", "Vous ne pouvez pas ajouter un montant négatif");
+                return;
+            }
+
+            distributeur.insererArgent(amount);
+            // distributeur.setCredit(distributeur.getCredit() + Integer.parseInt(amount));
+            request.setAttribute("creditError", null);
+        } catch (Exception e) {
+            request.setAttribute("creditError", "Une erreur est survenue lors de l'ajout du crédit");
+        }
     }
 
     private void buyProduct(HttpServletRequest request) {
+
         String productId = request.getParameter("productId");
+
         if (productId == null || "".equals(productId)) {
             return;
         }
-        distributeur.commanderProduit(Integer.parseInt(productId));
+
+        try {
+            int id = Integer.parseInt(productId);
+
+            if (distributeur.getProduit(id) == null) {
+                request.setAttribute("productError", "Le produit demandé n'existe pas");
+                return;
+            }
+
+            if (!distributeur.creditSuffisant(id)) {
+                request.setAttribute("insufficientError", "Votre crédit est insuffisant");
+                return;
+            }
+
+            if (!distributeur.stockSuffisant(id)) {
+                request.setAttribute("productError", "Le produit n'est plus en stock");
+                return;
+            }
+
+            distributeur.commanderProduit(id);
+        } catch (Exception e) {
+            request.setAttribute("productError", "Une erreur est survenue lors de l'achat");
+        }
 
     }
 
-    private void setDistributorAttributes(HttpServletRequest request) {
-        request.setAttribute("stock", distributeur.getStock());
+    private void setDistributorAttribute(HttpServletRequest request) {
         request.setAttribute("credit", distributeur.getCredit());
+        request.setAttribute("stock", distributeur.getStock());
     }
 
     /**
