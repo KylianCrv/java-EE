@@ -44,7 +44,25 @@ public class DistributeurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doPost(request, response);
+
+        Distributeur distributeur = Distributeur.getInstance();
+
+        if (request.getParameter("addOneCredit") != null) {
+            distributeur.insererArgent(1);
+        }
+
+        if (request.getParameter("addTwoCredit") != null) {
+            distributeur.insererArgent(2);
+        }
+
+        if (request.getParameter("buyProduct") != null) {
+            distributeur.commanderProduit(Integer.parseInt(request.getParameter("idProduct")));
+        }
+
+        request.setAttribute("stock", distributeur.getStock());
+        request.setAttribute("credit", distributeur.getCredit());
+
+        this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
 
     /**
@@ -55,6 +73,6 @@ public class DistributeurServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

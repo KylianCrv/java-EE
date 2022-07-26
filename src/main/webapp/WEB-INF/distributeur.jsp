@@ -7,7 +7,7 @@
         <jsp:param name="title" value="Distributeur"/>
     </jsp:include>
     <body>
-        <h2>Crédit restant : ${credit}</h2>
+        <h2>Crédit restant : <c:out value="${credit}"/></h2>
 
         <table>
             <caption>Liste des produits</caption>
@@ -27,5 +27,20 @@
                 </tr>
             </c:forEach>
         </table>
+
+        <form method="POST">
+            <label>Ajouter du crédit : </label>
+            <br>
+            <input type="submit" name="addOneCredit" value="+1 crédit">
+            <input type="submit" name="addTwoCredit" value="+2 crédits">
+        </form>
+
+        <br>
+
+        <form method="POST">
+            <label>Acheter un produit : </label>
+            <input type="number" name="idProduct" />
+            <input type="submit" name="buyProduct" value="Acheter ce produit"/>
+        </form>
     </body>
 </html>
