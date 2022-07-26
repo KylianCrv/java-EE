@@ -52,14 +52,13 @@ public class DistributeurServlet extends HttpServlet {
 
     private void addCredit(HttpServletRequest request) {
 
-        String addOne = request.getParameter("addOne");
-        String addTwo = request.getParameter("addTwo");
+        String addCredit = request.getParameter("addCredit");
 
-        if (addOne == null && addTwo == null) {
+        if (addCredit == null) {
             return;
         }
 
-        int amount = addOne != null ? 1 : 2;
+        int amount = Integer.parseInt(addCredit);
 
         distributeur.insererArgent(amount);
     }

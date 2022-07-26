@@ -31,8 +31,8 @@
         <form method="POST">
             <fieldset>
                 <legend>Ajouter du crédit</legend>
-                <input type="submit" name="addOne" value="Ajouter 1"/>
-                <input type="submit" name="addTwo" value="Ajouter 2"/>
+                <input type="number" name="addCredit"/>
+                <input type="submit" value="Ajouter"/>
             </fieldset>
         </form>
 
