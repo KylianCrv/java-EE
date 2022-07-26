@@ -7,22 +7,25 @@
         <jsp:param name="title" value="Distributeur"/>
     </jsp:include>
     <body>
-        <h1>Crédit restant : ${credit}"</h1>
+        <h2>Crédit restant : ${credit}</h2>
 
         <table>
-            <thead>
-            <th colspan="4">Liste des produits</th>
-        </thead>
-        <tbody>
-        <td>Numéro de produit</td>
-        <td>Nom</td>
-        <td>Quantité</td>
-        <td>Prix</td>
+            <caption>Liste des produits</caption>
+            <tr>
+                <th>Numéro du produit</th>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+            </tr>
 
-        <c:forEach var="stock" begin="" end="">
-
-        </c:forEach>
-    </tbody>
-</table>
-</body>
+            <c:forEach items="${stock}" var="product">
+                <tr>
+                    <td><c:out value="${product.getId()}"/></td>
+                    <td><c:out value="${product.getNom()}"/></td>
+                    <td><c:out value="${product.getQuantite()}"/></td>
+                    <td><c:out value="${product.getPrix()}"/></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </body>
 </html>

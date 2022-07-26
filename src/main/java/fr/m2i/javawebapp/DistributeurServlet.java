@@ -26,11 +26,9 @@ public class DistributeurServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Distributeur distributeur = Distributeur.getInstance();
-        int credit = distributeur.getCredit();
 
-        List<Produit> stock = distributeur.getStock();
-        request.setAttribute("stock", stock);
-        request.setAttribute("credit", credit);
+        request.setAttribute("stock", distributeur.getStock());
+        request.setAttribute("credit", distributeur.getCredit());
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
