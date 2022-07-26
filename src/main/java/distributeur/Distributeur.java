@@ -19,7 +19,7 @@ public class Distributeur {
         return instance;
     }
 
-    public Distributeur() {
+    private Distributeur() {
         credit = 0;
         stock = new ArrayList();
         remplirLeStock();
