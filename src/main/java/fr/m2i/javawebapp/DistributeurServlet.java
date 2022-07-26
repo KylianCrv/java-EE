@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DistributeurServlet extends HttpServlet {
 
+    private final Distributeur distributeur = Distributeur.getInstance();
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -25,10 +27,7 @@ public class DistributeurServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Distributeur distributeur = Distributeur.getInstance();
-
-        request.setAttribute("stock", distributeur.getStock());
-        request.setAttribute("credit", distributeur.getCredit());
+        setDistributorAttributes(request);
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
@@ -45,24 +44,38 @@ public class DistributeurServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Distributeur distributeur = Distributeur.getInstance();
+        addCredit(request);
+        buyProduct(request);
+        setDistributorAttributes(request);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
+    }
 
-        if (request.getParameter("addOneCredit") != null) {
-            distributeur.insererArgent(1);
+    private void addCredit(HttpServletRequest request) {
+
+        String addOne = request.getParameter("addOne");
+        String addTwo = request.getParameter("addTwo");
+
+        if (addOne == null && addTwo == null) {
+            return;
         }
 
-        if (request.getParameter("addTwoCredit") != null) {
-            distributeur.insererArgent(2);
-        }
+        int amount = addOne != null ? 1 : 2;
 
-        if (request.getParameter("buyProduct") != null) {
-            distributeur.commanderProduit(Integer.parseInt(request.getParameter("idProduct")));
-        }
+        distributeur.insererArgent(amount);
+    }
 
+    private void buyProduct(HttpServletRequest request) {
+        String productId = request.getParameter("productId");
+        if (productId == null || "".equals(productId)) {
+            return;
+        }
+        distributeur.commanderProduit(Integer.parseInt(productId));
+
+    }
+
+    private void setDistributorAttributes(HttpServletRequest request) {
         request.setAttribute("stock", distributeur.getStock());
         request.setAttribute("credit", distributeur.getCredit());
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
 
     /**

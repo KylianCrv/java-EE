@@ -29,18 +29,21 @@
         </table>
 
         <form method="POST">
-            <label>Ajouter du crédit : </label>
-            <br>
-            <input type="submit" name="addOneCredit" value="+1 crédit">
-            <input type="submit" name="addTwoCredit" value="+2 crédits">
+            <fieldset>
+                <legend>Ajouter du crédit</legend>
+                <input type="submit" name="addOne" value="Ajouter 1"/>
+                <input type="submit" name="addTwo" value="Ajouter 2"/>
+            </fieldset>
         </form>
 
-        <br>
+        <br />
 
         <form method="POST">
-            <label>Acheter un produit : </label>
-            <input type="number" name="idProduct" />
-            <input type="submit" name="buyProduct" value="Acheter ce produit"/>
+            <fieldset>
+                <legend>Acheter un produit</legend>
+                <input type="number" name="productId"/>
+                <input type="submit"  value="Acheter"/>
+            </fieldset>
         </form>
     </body>
 </html>
