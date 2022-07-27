@@ -1,7 +1,7 @@
 package fr.m2i.javawebapp;
 
 import fr.m2i.javawebapp.session.User;
-import static fr.m2i.javawebapp.session.UserDb.checkUser;
+import fr.m2i.javawebapp.session.UserDb;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,13 +37,15 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //On récupere notre userDb depuis les attribut du servlet context crée dans le lifecyclelistener
+        UserDb userDb = (UserDb) this.getServletContext().getAttribute("userDb");
+
         //on récup les param du form
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         //on essaye de connecter le user avec les identifiants envoyés
-        User user = checkUser(email, password);
-
+        User user = userDb.checkUser(email, password);
         //si user == null => invalide + afficher message erreur
         if (user == null) {
             request.setAttribute("error", "Veuillez vérifier vos identifiants !");
@@ -55,7 +57,8 @@ public class LoginServlet extends HttpServlet {
         //on stock l'user connecté
         session.setAttribute("user", user);
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/welcome.jsp").forward(request, response);
+        //on redirige vers la page welcome
+        response.sendRedirect("/java-web-app/HomeServlet");
     }
 
     /**
