@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class DistributeurServlet extends HttpServlet {
 
@@ -27,6 +28,7 @@ public class DistributeurServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         setDistributorAttribute(request);
+
         this.getServletContext().getRequestDispatcher("/WEB-INF/distributeur.jsp").forward(request, response);
     }
 
