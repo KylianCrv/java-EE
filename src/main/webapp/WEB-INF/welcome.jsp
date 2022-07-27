@@ -6,6 +6,6 @@
         <jsp:param name="title" value="Welcome" />
     </jsp:include>
     <body>
-        <h1>Bonjour <c:out value="${sessionScope.email}"/> vous êtes un <c:out value="${sessionScope.user.role}"/></h1>
+        <h3>Bonjour <c:out value="${sessionScope.user.email}"/> vous êtes un <c:out value="${sessionScope.user.role}"/></h3>
     </body>
 </html>

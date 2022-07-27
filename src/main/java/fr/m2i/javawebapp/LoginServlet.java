@@ -43,14 +43,16 @@ public class LoginServlet extends HttpServlet {
 
             request.setAttribute("errorMessage", null);
             HttpSession session = request.getSession();
-            session.setAttribute("email", email);
-            session.setAttribute("password", password);
+            User user = checkUser(email, password);
+            session.setAttribute("user", user);
             this.getServletContext().getRequestDispatcher("/WEB-INF/welcome.jsp").forward(request, response);
+
+        } else {
+
+            request.setAttribute("errorMessage", "Une erreur est survenue lors de la connexion");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+
         }
-
-        request.setAttribute("errorMessage", "Une erreur est survenue lors de la connexion");
-        this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-
     }
 
     /**
