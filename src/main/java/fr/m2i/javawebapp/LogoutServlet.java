@@ -1,7 +1,5 @@
 package fr.m2i.javawebapp;
 
-import fr.m2i.javawebapp.session.User;
-import static fr.m2i.javawebapp.session.UserDb.checkUser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginServlet extends HttpServlet {
+/**
+ *
+ * @author ishish
+ */
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -22,7 +24,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+
+        HttpSession session = request.getSession(false);
+        //on déco le user en invalidant la session => on clear ce qui est stocké
+        session.invalidate();
+
+        response.setHeader("Refresh", "5; URL=LoginServlet ");
+        this.getServletContext().getRequestDispatcher("/WEB-INF/logout.jsp").forward(request, response);
     }
 
     /**
@@ -36,26 +44,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        //on récup les param du form
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        //on essaye de connecter le user avec les identifiants envoyés
-        User user = checkUser(email, password);
-
-        //si user == null => invalide + afficher message erreur
-        if (user == null) {
-            request.setAttribute("error", "Veuillez vérifier vos identifiants !");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            return;
-        }
-        //Je crée une nouvelle session avec le param true
-        HttpSession session = request.getSession(true);
-        //on stock l'user connecté
-        session.setAttribute("user", user);
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/welcome.jsp").forward(request, response);
+        super.doPost(request, response);
     }
 
     /**

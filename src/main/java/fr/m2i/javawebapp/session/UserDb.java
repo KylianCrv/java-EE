@@ -16,6 +16,9 @@ public class UserDb {
         //parser la liste d'user
         //chercher l'occurence qui a le bon couple email/password -> le retourner
         //null si on trouve pas
+        if (email == null || password == null) {
+            return null;
+        }
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return user;

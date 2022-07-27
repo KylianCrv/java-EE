@@ -12,15 +12,15 @@
                 <legend>Formulaire d'authentification : </legend>
                 <p>
                     <label>Email : </label>
-                    <input type="text" name="email" />
+                    <input type="email" name="email" required/>
                 </p>
                 <p>
                     <label>Mot de passe : </label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" required/>
                 </p>
-                <input type="submit" value="S'authentifier" />
-                <c:if test="${errorMessage != null}">
-                    <p style="color:red;"><c:out value="${errorMessage}" /></p>
+                <input type="submit" value="Connexion" />
+                <c:if test="${error != null}">
+                    <p style="color:red;"><c:out value="${error}" /></p>
                 </c:if>
             </fieldset>
         </form>
